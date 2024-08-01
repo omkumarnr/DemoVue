@@ -1,0 +1,22 @@
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g pnpm
+    pnpm install axios
+    pnpm install
+    pnpm run build
+    echo "Contents of $(Build.SourcesDirectory):"
+    ls -la $(Build.SourcesDirectory)
+    echo "Contents of $(Build.SourcesDirectory)/dist:"
+    ls -la $(Build.SourcesDirectory)/dist
+  displayName: 'Install dependencies and build'
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/dist'
+    artifactName: 'vue-test'
+    publishLocation: 'pipeline'
+  displayName: 'Publish JAR as pipeline artifact'
