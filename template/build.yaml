@@ -1,0 +1,6 @@
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/dist'
+    artifactName: 'vue-test'
+    publishLocation: 'pipeline'
+  displayName: 'Publish JAR as pipeline artifact'
